@@ -16,7 +16,7 @@ public class FamilyController implements FamilyApi {
         String memberNameBase = "디프만";
 
         List<FamilyMemberProfileResponse> mockResponses = new ArrayList<>();
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             int currentIndex = i + ((page - 1) * size);
             String suffix = String.format("%02d", currentIndex);
             mockResponses.add(
