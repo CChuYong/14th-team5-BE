@@ -4,6 +4,7 @@ package com.oing.controller;
 import com.oing.dto.response.PaginationResponse;
 import com.oing.dto.response.PostFeedResponse;
 import com.oing.restapi.PostFeedApi;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
@@ -30,7 +31,7 @@ public class PostFeedController implements PostFeedApi {
 
         List<PostFeedResponse> mockResponses = new ArrayList<>();
         Random random = new Random();
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             int currentIndex = i + ((page - 1) * size);
             String suffix = String.format("%02d", currentIndex);
             mockResponses.add(
@@ -46,5 +47,10 @@ public class PostFeedController implements PostFeedApi {
         }
 
         return new PaginationResponse<>(page, 5, size, mockResponses);
+    }
+
+    @Override
+    public ResponseEntity<Boolean> getIsTodayFeedUploadedByUserId(String userId) {
+        return ResponseEntity.ok(false);
     }
 }

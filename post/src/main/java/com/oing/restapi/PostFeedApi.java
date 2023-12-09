@@ -8,10 +8,12 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import com.oing.dto.response.PostFeedResponse;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import java.time.LocalDate;
 
@@ -26,6 +28,7 @@ import java.time.LocalDate;
 @Valid
 @RequestMapping("/v1/feeds")
 public interface PostFeedApi {
+
     @Operation(summary = "데일리 피드 조회", description = "데일리 피드를 조회합니다.")
     @GetMapping(params = {"type=DAILY"})
     PaginationResponse<PostFeedResponse> fetchDailyFeeds(
@@ -43,5 +46,13 @@ public interface PostFeedApi {
             @RequestParam(required = false)
             @Parameter(description = "오늘의 날짜", example = "2023-12-05")
             LocalDate date
+            );
+
+    @Operation(summary = "금일 피드 업로드 여부 조회", description = "특정 유저의 금일 피드 업로드 여부를 boolean으로 반환합니다.")
+    @GetMapping("{userId}/today/")
+    ResponseEntity<Boolean> getIsTodayFeedUploadedByUserId(
+            @RequestParam(value = "userId", required = true)
+            @Parameter(description = "유저 아이디", example = "01HH60VYKCFAHQY21N8EFM8BED")
+            String userId
     );
 }
